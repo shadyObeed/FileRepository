@@ -29,7 +29,7 @@ stages:
         repository: 'launcherservice'
         command: 'build'
         buildContext : $(Build.Repository.LocalPath)
-        Dockerfile: 'src/WebApi/Dockerfile'
+        Dockerfile: 'WebApi/Dockerfile'
         tags: '$(build.buildnumber)'
     - task: Docker@2
       inputs:
