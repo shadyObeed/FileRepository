@@ -1,9 +1,6 @@
 trigger:
   paths:
     include:
-      - src/Domain/*
-      - src/Application/*
-      - src/Infrastructure/*
       - src/WebApi/*
       - build-service.yml
   branches:
