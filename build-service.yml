@@ -29,7 +29,7 @@ stages:
         repository: 'commandlaunchermapperservice'
         command: 'build'
         buildContext : $(Build.Repository.LocalPath)
-        Dockerfile: 'WebApi/Dockerfile'
+        Dockerfile: 'WebAPI/Dockerfile'
         tags: '$(build.buildnumber)'
     - task: Docker@2
       inputs:
