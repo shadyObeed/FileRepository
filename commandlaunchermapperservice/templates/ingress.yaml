@@ -1,12 +1,12 @@
 {{- if .Values.ingressRoute.enabled }}
-{{- $fullName := include "launcherservice.fullname" . -}}
+{{- $fullName := include "commandlaunchermapperservice.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: {{ $fullName }}
   labels:
-    {{- include "launcherservice.labels" . | nindent 4 }}
+    {{- include "commandlaunchermapperservice.labels" . | nindent 4 }}
   {{- with .Values.ingressRoute.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -21,8 +21,8 @@ spec:
     match: {{ .Values.ingressRoute.match }}
     priority: {{ .Values.ingressRoute.priority }}  
     middlewares:
-    - name: {{ include "launcherservice.fullname" . }}
+    - name: {{ include "commandlaunchermapperservice.fullname" . }}
     services:
-    - name: {{ include "launcherservice.fullname" . }} 
+    - name: {{ include "commandlaunchermapperservice.fullname" . }} 
       port: {{ .Values.service.port }}
 {{- end }}
