@@ -9,7 +9,7 @@ WORKDIR /src
 COPY ["src/WebAPI/WebAPI.csproj", "src/WebAPI/"]
 RUN dotnet restore "src/WebAPI/WebAPI.csproj"
 COPY . .
-WORKDIR "/src/src/WebAPI"
+WORKDIR "src/WebAPI"
 RUN dotnet build "WebAPI.csproj" -c Release -o /app/build
 
 FROM build AS publish

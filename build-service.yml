@@ -1,7 +1,7 @@
 trigger:
   paths:
     include:
-      - src/WebApi/*
+      - src/WebAPI/*
       - build-service.yml
   branches:
     include:
@@ -26,15 +26,15 @@ stages:
       displayName: Build DockerFile
       inputs:
         containerRegistry: 'laasaksgen'
-        repository: 'launcherservice'
+        repository: 'commandlaunchermapperservice'
         command: 'build'
         buildContext : $(Build.Repository.LocalPath)
-        Dockerfile: 'WebApi/Dockerfile'
+        Dockerfile: 'src/WebAPI/Dockerfile'
         tags: '$(build.buildnumber)'
     - task: Docker@2
       inputs:
         containerRegistry: 'laasaksgen'
-        repository: 'launcherservice'
+        repository: 'commandlaunchermapperservice'
         command: 'push'
         tags: '$(build.buildnumber)'
     - task: HelmInstaller@1
@@ -43,7 +43,7 @@ stages:
         helmVersionToInstall: v3.0.2
     - task: replacetokens@3
       inputs:
-        rootDirectory: 'launcherservice'
+        rootDirectory: 'commandlaunchermapperservice'
         targetFiles: '**/values.yaml'
         encoding: 'auto'
         writeBOM: true
@@ -58,7 +58,7 @@ stages:
       inputs:
         azureSubscription: LaaS (d3e4d481-e08a-4d85-b01a-9ae56dab1e72)
         command: package
-        chartPath: launcherservice
+        chartPath: commandlaunchermapperservice
         chartVersion: '1.$(build.buildnumber)'
         save: false
         arguments: '--app-version 1.$(build.buildnumber)'
@@ -67,7 +67,7 @@ stages:
       inputs:
         azureSubscription: LaaS (d3e4d481-e08a-4d85-b01a-9ae56dab1e72)
         scriptLocation: inlineScript
-        inlineScript: 'az acr helm push --name laasaksgen $(Build.ArtifactStagingDirectory)/launcherservice-1.$(Build.BuildNumber).tgz'
+        inlineScript: 'az acr helm push --name laasaksgen $(Build.ArtifactStagingDirectory)/commandlaunchermapperservice-1.$(Build.BuildNumber).tgz'
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: drop'
       inputs:
