@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "launcherservice.name" -}}
+{{- define "commandlaunchermapperservice.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "launcherservice.fullname" -}}
+{{- define "commandlaunchermapperservice.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "launcherservice.chart" -}}
+{{- define "commandlaunchermapperservice.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "launcherservice.labels" -}}
-helm.sh/chart: {{ include "launcherservice.chart" . }}
-{{ include "launcherservice.selectorLabels" . }}
+{{- define "commandlaunchermapperservice.labels" -}}
+helm.sh/chart: {{ include "commandlaunchermapperservice.chart" . }}
+{{ include "commandlaunchermapperservice.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "launcherservice.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "launcherservice.name" . }}
+{{- define "commandlaunchermapperservice.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "commandlaunchermapperservice.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "launcherservice.serviceAccountName" -}}
+{{- define "commandlaunchermapperservice.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "launcherservice.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "commandlaunchermapperservice.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
