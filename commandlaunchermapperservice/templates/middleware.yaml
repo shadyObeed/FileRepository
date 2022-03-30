@@ -1,9 +1,9 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: {{ include "systemexecutionservice.fullname" . }}
+  name: {{ include "commandlaunchermapperservice.fullname" . }}
   namespace: {{ .Values.namespaceName }}
 spec:
   stripPrefix:
     prefixes:
-      - /systemexecution
+      - /commandlaunchermapper
