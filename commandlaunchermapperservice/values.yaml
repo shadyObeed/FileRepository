@@ -47,7 +47,7 @@ ingress:
   hosts:
     - host: ""
       paths:
-       - /launcher
+       - /commandlaunchermapperservice
   tls: []
 
 ingressRoute:
@@ -55,7 +55,7 @@ ingressRoute:
   annotations: {}
   entry_points:
     - websecure
-  match: PathPrefix(`/launcher`)
+  match: PathPrefix(`/commandlaunchermapperservice`)
   priority: 200
 
 resources:
