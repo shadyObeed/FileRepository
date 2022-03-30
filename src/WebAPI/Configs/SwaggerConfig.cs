@@ -10,7 +10,7 @@ namespace WebApi.Configs
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "SignalR Management API",
+                    Title = "Command Launcher Mapper Management API",
                     Version = "v1"
                 });
             });
@@ -19,7 +19,7 @@ namespace WebApi.Configs
 
         public static void UseSwaggerDeployed(this IApplicationBuilder app)
         {
-            var basePath = @"/signalr";
+            var basePath = @"/commandlaunchermapper";
             app.UseSwagger(c =>
             {
                 c.RouteTemplate = "swagger/{documentName}/swagger.json";
@@ -31,7 +31,7 @@ namespace WebApi.Configs
             app.UseSwaggerUI(c =>
             {
                 string swaggerJsonBasePath = string.IsNullOrWhiteSpace(c.RoutePrefix) ? "." : "..";
-                c.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/v1/swagger.json", "SignalR Management API");
+                c.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/v1/swagger.json", "commandlaunchermapper Management API");
             });
         }
     }
