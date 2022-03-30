@@ -8,6 +8,6 @@ public class TelemetryInitializer : ITelemetryInitializer
 {
     public void Initialize(ITelemetry telemetry)
     {
-        telemetry.Context.Cloud.RoleName = "SystemExecution";
+        telemetry.Context.Cloud.RoleName = "CommandLauncherMapper";
     }
 }

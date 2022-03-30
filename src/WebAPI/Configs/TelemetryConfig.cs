@@ -1,6 +1,6 @@
 ﻿using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.ApplicationInsights.Extensibility;
-using WebApi.Utils;
+using WebApi.Telemetry;
 
 namespace WebApi.Configs
 {
@@ -8,7 +8,7 @@ namespace WebApi.Configs
     {
         public static void AddTelemetry(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSingleton<ITelemetryInitializer, SignalRManagerTelemetryInitializer>();
+            services.AddSingleton<ITelemetryInitializer, TelemetryInitializer>();
             var aiOptions = new ApplicationInsightsServiceOptions
             {
                 EnableAdaptiveSampling = false,
