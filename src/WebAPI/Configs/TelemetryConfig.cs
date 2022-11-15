@@ -8,13 +8,12 @@ public static class TelemetryConfig
 {
     public static void AddTelemetry(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSingleton<ITelemetryInitializer, TelemetryInitializer>();
         var aiOptions = new ApplicationInsightsServiceOptions
         {
             EnableAdaptiveSampling = false,
-            ConnectionString = configuration.GetValue<string>("appinsights-constring-NGC", "")
+            InstrumentationKey = configuration.GetValue<string>("appinsights-instrumentationKey-NGC", "")
         };
+        services.AddSingleton<ITelemetryInitializer, TelemetryInitializer>();
         services.AddApplicationInsightsTelemetry(aiOptions);
     }
-
 }

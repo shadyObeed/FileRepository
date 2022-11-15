@@ -8,6 +8,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using WebAPI;
 using WebAPI.Repositories;
 
 
@@ -40,7 +41,7 @@ public class Testing
         _servicesCollection.AddLogging();
         
 
-        StartUp.ConfigureServices(_servicesCollection, _configuration);
+        Startup.ConfigureServices(_servicesCollection, _configuration);
 
         var serviceProvider = _servicesCollection.BuildServiceProvider();
         await EnsureDeletedDatabase(serviceProvider);
