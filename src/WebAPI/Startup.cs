@@ -1,4 +1,8 @@
 ﻿using System.Reflection;
+using Application;
+using Domain;
+using Infrastructure;
+using MediatR;
 using WebApi.Configs;
 using WebAPI.Domain.Services;
 using WebAPI.Filters;
@@ -18,6 +22,15 @@ public static class Startup
         services.AddTelemetry(configuration);
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+        
+        services.AddMediatR(Assembly.GetExecutingAssembly());
+        //add Infrastructure
+        services.AddInfrastructure();
+        //add Domain
+        services.AddDomain();
+        //add Application
+        services.AddApplication();
+        
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddCosmosdb(configuration);
         services.AddScoped<ILaunchersRepository, LaunchersRepository>();

@@ -1,5 +1,4 @@
 ﻿using Microsoft.OpenApi.Models;
-
 namespace WebApi.Configs;
 
 public static class SwaggerConfig
