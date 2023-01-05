@@ -1,14 +1,11 @@
 using WebAPI;
 using WebAPI.Configs;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 Startup.ConfigureServices(builder.Services, builder.Configuration);
-
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -20,9 +17,9 @@ else
 {
     app.UseSwaggerDeployed();
 }
+
 app.UseCorsAllowAll();
 app.UseAuthorization();
-
 app.MapControllers();
 app.UseHealthChecks("/health");
 

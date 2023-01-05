@@ -2,6 +2,6 @@ namespace Domain.FileProcessor;
 
 public interface IFileProcessor
 {
-    string Process(Stream input);
+    Stream Process(Stream input);
     bool SupportsFileType(Stream input);
 }

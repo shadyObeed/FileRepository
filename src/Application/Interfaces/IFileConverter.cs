@@ -6,6 +6,5 @@ namespace Application.Interfaces;
 
 public interface IFileConverter
 {
-    Task<IFormFile> ToStreamAsync(string input, string fileName);
-    Task<string> FromStreamAsync(Stream input);
+    Task<IFormFile> ToStreamAsync(Stream input, string fileName);
 }

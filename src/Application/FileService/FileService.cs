@@ -18,19 +18,17 @@ public class FileService : IFileService
 
     public async Task<IFormFile> ProcessFileAsync(IFormFile file)
     {
-        var inputStream = file.OpenReadStream();
-        var processor = GetProcessor(inputStream);
-        var processedFile = processor.Process(inputStream);
+        var processedFile = TryProcessFile(file.OpenReadStream());
         return await _fileConverter.ToStreamAsync(processedFile, file.Name);
     }
 
-    private IFileProcessor GetProcessor(Stream stream)
+    private Stream TryProcessFile(Stream stream)
     {
         foreach (var processor in _processors)
         {
             if (processor.SupportsFileType(stream))
             {
-                return processor;
+                return processor.Process(stream);
             }
         }
         

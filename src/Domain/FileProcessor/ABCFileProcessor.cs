@@ -2,7 +2,7 @@
 
 public class AbcFileProcessor : IFileProcessor
 {
-    public string Process(Stream input)
+    public Stream Process(Stream input)
     {
         throw new NotImplementedException();
     }

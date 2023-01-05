@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Application;
+﻿using Application;
 using Domain;
 using Infrastructure;
 using WebAPI.Configs;
@@ -16,9 +15,9 @@ public static class Startup
         services.AddDomain();
         //add Application
         services.AddApplication();
-        
-        // Add services to the container.
+        // Add WebAPI
         services.AddControllers(options => options.Filters.Add<ExceptionHandler>());
+        
         services.AddCorsAllowAll();
         services.AddHealthChecks();
         services.AddSwagger();
