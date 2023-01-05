@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using WebAPI.Domain.Exceptions;
 
 namespace WebAPI.Filters;
 
@@ -14,18 +14,13 @@ public class ExceptionHandler : ExceptionFilterAttribute
         // Register known exception types and handlers.
         _exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>
         {
-            { typeof(LauncherAlreadyExistsException), HandleAlreadyExistsException },
-            { typeof(CommandAlreadyExistsException), HandleAlreadyExistsException },
-            { typeof(LauncherNotFoundException), HandleNotFoundException },
-            { typeof(CommandNotFoundException), HandleNotFoundException },
-            { typeof(UnauthorizedAccessException), HandleUnauthorizedAccessException },
+            { typeof(UnsupportedFileTypeException), HandleUnsupportedFileTypeException },
         };
     }
 
     public override void OnException(ExceptionContext context)
     {
         HandleException(context);
-
         base.OnException(context);
     }
 
@@ -51,7 +46,6 @@ public class ExceptionHandler : ExceptionFilterAttribute
     {
         var details = new ValidationProblemDetails(context.ModelState)
         {
-            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.1"
         };
 
         context.Result = new BadRequestObjectResult(details);
@@ -59,65 +53,31 @@ public class ExceptionHandler : ExceptionFilterAttribute
         context.ExceptionHandled = true;
     }
 
-    private void HandleNotFoundException(ExceptionContext context)
-    {
-        var exception = context.Exception as LauncherNotFoundException;
-
-        var details = new ProblemDetails()
-        {
-            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.4",
-            Title = "The specified resource was not found.",
-            Detail = exception.Message
-        };
-
-        context.Result = new NotFoundObjectResult(details);
-
-        context.ExceptionHandled = true;
-    }
-
-    private void HandleUnauthorizedAccessException(ExceptionContext context)
+    private void HandleUnsupportedFileTypeException(ExceptionContext context)
     {
         var details = new ProblemDetails
         {
-            Status = StatusCodes.Status401Unauthorized,
-            Title = "Unauthorized",
-            Detail = context.Exception.Message,
-            Type = "https://tools.ietf.org/html/rfc7235#section-3.1"
+            Status = StatusCodes.Status406NotAcceptable,
+            Title = "file type is unsupported yet.",
+            Detail = context.Exception.Message
         };
 
         context.Result = new ObjectResult(details)
         {
-            StatusCode = StatusCodes.Status401Unauthorized
+            StatusCode = StatusCodes.Status406NotAcceptable
         };
 
         context.ExceptionHandled = true;
     }
-
-    private void HandleAlreadyExistsException(ExceptionContext context)
-    {
-        var details = new ProblemDetails
-        {
-            Status = StatusCodes.Status409Conflict,
-            Title = "The specified resource already exists",
-            Detail = context.Exception.Message,
-            Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.8"
-        };
-
-        context.Result = new ObjectResult(details)
-        {
-            StatusCode = StatusCodes.Status409Conflict
-        };
-
-        context.ExceptionHandled = true;
-    }
+    
+    
 
     private void HandleUnknownException(ExceptionContext context)
     {
         var details = new ProblemDetails
         {
             Status = StatusCodes.Status500InternalServerError,
-            Title = "An error occurred while processing your request.",
-            Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1"
+            Title = "An error occurred while processing your request."
         };
 
         context.Result = new ObjectResult(details)

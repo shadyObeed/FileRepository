@@ -20,7 +20,6 @@ public class FileConverter : IFileConverter
     
     public async Task<string> FromStreamAsync(Stream input)
     {
-        //todo use safe stringBuilder
         // Convert the stream to a byte array
         var streamReader = new StreamReader(input);
         return await streamReader.ReadToEndAsync();

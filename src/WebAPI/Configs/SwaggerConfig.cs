@@ -9,7 +9,7 @@ public static class SwaggerConfig
         {
             c.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "Command Launcher Mapper Management API",
+                Title = "File Processor Management API",
                 Version = "v1"
             });
         });
@@ -18,7 +18,7 @@ public static class SwaggerConfig
 
     public static void UseSwaggerDeployed(this IApplicationBuilder app)
     {
-        var basePath = @"/commandlaunchermapper";
+        var basePath = @"/fileprocessormapper";
         app.UseSwagger(c =>
         {
             c.RouteTemplate = "swagger/{documentName}/swagger.json";
@@ -30,7 +30,7 @@ public static class SwaggerConfig
         app.UseSwaggerUI(c =>
         {
             string swaggerJsonBasePath = string.IsNullOrWhiteSpace(c.RoutePrefix) ? "." : "..";
-            c.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/v1/swagger.json", "commandlaunchermapper Management API");
+            c.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/v1/swagger.json", "File Processor Management API");
         });
     }
 }

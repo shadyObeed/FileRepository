@@ -1,4 +1,6 @@
+using Application.Exceptions;
 using Application.Interfaces;
+using Domain.FileProcessor;
 using Microsoft.AspNetCore.Http;
 
 namespace Application.FileService;
@@ -6,24 +8,32 @@ namespace Application.FileService;
 public class FileService : IFileService
 {
     private readonly IFileConverter _fileConverter;
-    private readonly IFileProcessor _fileProcessor;
+    private readonly IEnumerable<IFileProcessor> _processors;
 
-    public FileService(IFileConverter fileConverter, IFileProcessor fileProcessor)
+    public FileService(IFileConverter fileConverter, IEnumerable<IFileProcessor> processors)
     {
         _fileConverter = fileConverter;
-        _fileProcessor = fileProcessor;
+        _processors = processors;
     }
 
     public async Task<IFormFile> ProcessFileAsync(IFormFile file)
     {
-        // Convert the file to a string
-        string fileContent = await _fileConverter.FromStreamAsync(file.OpenReadStream());
-
-        // Process the file
-        string processedContent = _fileProcessor.Process(fileContent);
-
-        // Convert the processed string back to a stream
-        return await _fileConverter.ToStreamAsync(processedContent, file.Name);
+        var inputStream = file.OpenReadStream();
+        var processor = GetProcessor(inputStream);
+        var processedFile = processor.Process(inputStream);
+        return await _fileConverter.ToStreamAsync(processedFile, file.Name);
     }
 
+    private IFileProcessor GetProcessor(Stream stream)
+    {
+        foreach (var processor in _processors)
+        {
+            if (processor.SupportsFileType(stream))
+            {
+                return processor;
+            }
+        }
+        
+        throw new UnsupportedFileTypeException($"Unsupported file type");
+    }
 }
