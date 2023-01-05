@@ -2,7 +2,7 @@
 using Application;
 using Domain;
 using Infrastructure;
-using WebApi.Configs;
+using WebAPI.Configs;
 using WebAPI.Filters;
 namespace WebAPI;
 

@@ -1,9 +1,10 @@
 ﻿//using Application.Commands;
+
 using Application.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApi.Controllers
+namespace WebAPI.Controllers
 {
     [Route("api/Ingredients")]
     [ApiController]
