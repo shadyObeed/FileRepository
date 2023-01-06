@@ -6,7 +6,6 @@ namespace WebAPI.Filters;
 
 public class ExceptionHandler : ExceptionFilterAttribute
 {
-
     private readonly IDictionary<Type, Action<ExceptionContext>> _exceptionHandlers;
 
     public ExceptionHandler()
@@ -14,6 +13,7 @@ public class ExceptionHandler : ExceptionFilterAttribute
         // Register known exception types and handlers.
         _exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>
         {
+            //todo add new exceptions
             { typeof(UnsupportedFileTypeException), HandleUnsupportedFileTypeException },
         };
     }

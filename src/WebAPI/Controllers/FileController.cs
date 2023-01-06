@@ -41,7 +41,7 @@ namespace WebAPI.Controllers
                 writer.Write((byte)3);
 
                 // Write the last 3 bytes (789)
-                writer.Seek(5, SeekOrigin.Begin);
+                writer.Seek(6, SeekOrigin.Begin);
                 writer.Write((byte)7);
                 writer.Write((byte)8);
                 writer.Write((byte)9);

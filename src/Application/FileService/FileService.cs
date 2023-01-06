@@ -1,5 +1,5 @@
 using Application.Exceptions;
-using Application.Interfaces;
+using Application.FileConverter;
 using Domain.FileProcessor;
 using Microsoft.AspNetCore.Http;
 
@@ -19,7 +19,7 @@ public class FileService : IFileService
     public async Task<IFormFile> ProcessFileAsync(IFormFile file)
     {
         var processedFile = TryProcessFile(file.OpenReadStream());
-        return await _fileConverter.ToStreamAsync(processedFile, file.Name);
+        return await _fileConverter.ToStreamAsync(processedFile, file.FileName, file.Name, file.Headers, file.ContentDisposition, file.ContentType);
     }
 
     private Stream TryProcessFile(Stream stream)

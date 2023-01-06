@@ -4,6 +4,7 @@ public class EfgFileProcessor : IFileProcessor
 {
     public Stream Process(Stream input)
     {
+        //todo make sure of the edges max int
         throw new NotImplementedException();
     }
     

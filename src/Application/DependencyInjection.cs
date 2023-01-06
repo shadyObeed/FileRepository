@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Application.FileConverter;
 using Application.FileService;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,7 @@ namespace Application
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddSingleton<IFileService,FileService.FileService>();
+            services.AddSingleton<IFileConverter,FileConverter.FileConverter>();
         }
     }
 }
