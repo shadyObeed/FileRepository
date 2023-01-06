@@ -9,7 +9,8 @@ public class FileConverter : IFileConverter
     {
         return Task.FromResult<IFormFile>(new FormFile(streamInput, 0, streamInput.Length, name, fileName){
             Headers = fileHeaders,
-            ContentType = fileContentType
+            ContentType = fileContentType,
+            ContentDisposition = fileContentDisposition
         });
     }
 }
