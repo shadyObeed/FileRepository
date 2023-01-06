@@ -20,7 +20,7 @@ public class AbcFileProcessor : BaseFileProcessor, IFileProcessor
             {
                 WriteLastBlock(outputStream);
             }
-            if (IsFirstBlock(stream) | IsHarmlessBlock(block))
+            else if (IsFirstBlock(stream) | IsHarmlessBlock(block))
             {
                 WriteValidBlock(outputStream, block);
             }
@@ -68,7 +68,7 @@ public class AbcFileProcessor : BaseFileProcessor, IFileProcessor
     
     protected override bool IsHarmlessBlock(byte[] block)
     {
-        return block[0] == 'A' && block[1] >= '1' && block[1] <= '9' && block[2] == 'C';
+        return block[0] == (byte)'A' && block[1] >= (byte)'1' && block[1] <= (byte)'9' && block[2] == (byte)'C';
     }
 
     protected override bool CheckValidStart(byte[] buffer)
@@ -83,8 +83,8 @@ public class AbcFileProcessor : BaseFileProcessor, IFileProcessor
     
     protected override void WriteLastBlock(MemoryStream outputStream)
     {
-        outputStream.WriteByte(Convert.ToByte('7'));
-        outputStream.WriteByte(Convert.ToByte('8'));
-        outputStream.WriteByte(Convert.ToByte('9'));
+        outputStream.WriteByte(7);
+        outputStream.WriteByte(8);
+        outputStream.WriteByte(9);
     }
 }

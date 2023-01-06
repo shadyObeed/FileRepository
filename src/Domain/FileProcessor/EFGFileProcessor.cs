@@ -19,7 +19,7 @@ public class EfgFileProcessor : BaseFileProcessor, IFileProcessor
             {
                 WriteLastBlock(outputStream);
             }
-            if (IsFirstBlock(stream) | IsHarmlessBlock(block))
+            else if (IsFirstBlock(stream) | IsHarmlessBlock(block))
             {
                 WriteValidBlock(outputStream, block);
             }
@@ -70,7 +70,7 @@ public class EfgFileProcessor : BaseFileProcessor, IFileProcessor
     
     protected override bool IsHarmlessBlock(byte[] block)
     {
-        return block[0] == 'E' && block[1] >= 'a' && block[1] <= 'z' && block[2] == 'G';
+        return block[0] == (byte)'E' && block[1] >= (byte)'a' && block[1] <= (byte)'z' && block[2] == (byte)'G';
     }
 
     protected override bool CheckValidStart(byte[] buffer)
@@ -85,9 +85,9 @@ public class EfgFileProcessor : BaseFileProcessor, IFileProcessor
     
     protected override void WriteLastBlock(MemoryStream outputStream)
     {
-        outputStream.WriteByte(Convert.ToByte('1'));
-        outputStream.WriteByte(Convert.ToByte('2'));
-        outputStream.WriteByte(Convert.ToByte('3'));
+        outputStream.WriteByte(1);
+        outputStream.WriteByte(2);
+        outputStream.WriteByte(3);
     }
 
 
