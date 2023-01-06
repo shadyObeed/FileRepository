@@ -28,9 +28,9 @@ public abstract class BaseFileProcessor
     protected  void ReplaceInvalidBlock(MemoryStream outputStream)
     {
         // Block is invalid, replace with "A255C"
-        outputStream.WriteByte(Convert.ToByte('A'));
-        outputStream.WriteByte(255);
-        outputStream.WriteByte(Convert.ToByte('C'));
+        outputStream.WriteByte((byte)'A');
+        outputStream.WriteByte((byte)255);
+        outputStream.WriteByte((byte)'C');
     }
     
     public bool IsLastBlock(Stream stream)
